@@ -3,8 +3,8 @@ import Row from './employeeRow';
 import '../styles/Row.css';
 import '../styles/table.css';
 
-
-function Table({employees}) {
+//const notPurchased = props.groceries.filter(grocery => !grocery.purchased);
+function Table({employees, handleTableClick, type}) {
     const spacer = 10;
     const col_name = 'Employee Name:';
     const col_dep = 'Department:';
@@ -15,8 +15,6 @@ function Table({employees}) {
     let depWidth = col_dep.length;            
     let roleWidth = col_role.length;            
     let salWidth = col_sal.length;
-
-
 
     for (let i = 0; i < employees.length; i++) {
         if (employees[i].name.length > nameWidth) {
@@ -42,22 +40,22 @@ function Table({employees}) {
     return (
         <div className='table row'>
             <div>
-                <span  className='row' style={{width: nameWidth}}>
+                <button onClick={()=> handleTableClick('Name')} className={`row ${type === 'Name' || 'active'}`} style={{width: nameWidth}}>
                     {col_name}
-                </span>
-                <span  className='row' style={{width: depWidth}}>
+                </button>
+                <button  onClick={()=> handleTableClick('Department')} className={`row ${type === 'Department' || 'active'}`} style={{width: depWidth}}>
                     {col_dep}
-                </span>
-                <span  className='row' style={{width: roleWidth}}>
+                </button>
+                <button  onClick={()=> handleTableClick('Role')} className={`row ${type === 'Role' || 'active'}`} style={{width: roleWidth}}>
                     {col_role}
-                </span>
-                <span  className='row' style={{width: salWidth}}>
+                </button>
+                <button  onClick={()=> handleTableClick('Salary')} className={`row ${type === 'Salary' || 'active'}`} style={{width: salWidth}}>
                     {col_sal}
-                </span>
+                </button>
             </div>
             <hr style={{width: nameWidth + depWidth + roleWidth + salWidth}}/>
             {employees.map(employee => (
-                <Row name={employee.name} department={employee.department} role={employee.role} salary={employee.salary}
+                <Row key={employee.id} name={employee.name} department={employee.department} role={employee.role} salary={employee.salary}
                     nameWidth={nameWidth} depWidth={depWidth} roleWidth={roleWidth} salWidth={salWidth}
                 />
             ))
