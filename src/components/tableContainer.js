@@ -45,7 +45,6 @@ class TableContainer extends Component {
 
     filterProperty = () => {
         let employees = this.state.employees.filter(element => {
-            console.log(element.name, this.state.max !== '' );
             return  element.name.toLowerCase() !== this.state.property.toLowerCase() &&
                     element.department.toLowerCase() !== this.state.property.toLowerCase() &&
                     element.role.toLowerCase() !== this.state.property.toLowerCase() &&
