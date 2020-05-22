@@ -1,13 +1,16 @@
 /* eslint-disable default-case */
 import React, {Component} from 'react';
 import Table from './table';
-import employees from '../employees.json';
+import Employees from '../employees.json';
 
 class TableContainer extends Component {
 
     state = {
-        employees,
-        name: ''
+        employees: Employees,
+        name: '',
+        property: '',
+        min: '',
+        max: ''
     };
     
 
@@ -32,6 +35,40 @@ class TableContainer extends Component {
         
     }
 
+    onChange = event => {
+        const {name, value} = event.target;
+
+        this.setState ({
+            [name]: value
+        })
+    }
+
+    filterProperty = () => {
+        let employees = this.state.employees.filter(element => {
+            console.log(element.name, this.state.max !== '' );
+            return  element.name.toLowerCase() !== this.state.property.toLowerCase() &&
+                    element.department.toLowerCase() !== this.state.property.toLowerCase() &&
+                    element.role.toLowerCase() !== this.state.property.toLowerCase() &&
+                    element.salary >= this.state.min &&
+                    (element.salary <= this.state.max || this.state.max === '') 
+                    
+        });
+
+        
+        
+        let property = '';
+        let min = '';
+        let max = '';
+        
+        this.setState({employees, property, min, max});
+    }
+
+    resetTable = () => {
+        let employees = Employees;
+       
+        this.setState({employees});
+    }
+
     render() {
         return(
             <div>
@@ -40,7 +77,44 @@ class TableContainer extends Component {
                     employees={this.state.employees}
                     type = {this.state.name}
                 />
+                <p>Enter a name, department or role for the property you would like to filter out.</p>
+                <p>Enter a min and/or max value for the salaries you would like to filter out</p>
+                 <form>
+                    <input
+                        value={this.state.property}
+                        name = 'property'
+                        type = 'text'
+                        onChange = {this.onChange}
+                        placeholder = 'Property'
+                    />
+                    
+                    <input
+                        value = {this.state.min}
+                        name = 'min'
+                        type = 'number'
+                        onChange = {this.onChange}
+                        placeholder = 'Min Salary'
+                        min = '0'
+                    />
+                    
+                    <input
+                        value = {this.state.max}
+                        name = 'max'
+                        type = 'number'
+                        onChange = {this.onChange}
+                        placeholder = 'Max Salary'
+                        min= '0'
+                    />
+                </form>
+                <button onClick={()=> this.filterProperty()}>Filter</button>
+                 <div>
+                    
+                    <button onClick={()=> this.resetTable()}>Reset Table</button>
+                </div>
+
             </div>
+
+           
         )
     }
 
