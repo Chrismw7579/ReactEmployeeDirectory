@@ -1,0 +1,1 @@
+{"version":3,"sources":["Row.css","table.css"],"names":[],"mappings":"AAAA,KACI,oBACJ,CAEA,QACI,qBACJ,CCNA,OACI,wBAA4B,CAC5B,WACJ","file":"main.3aefa5c1.chunk.css","sourcesContent":[".row {\r\n    display: inline-block;\r\n}\r\n\r\n.active {\r\n    background-color:  gray;\r\n}\r\n\r\n\r\n",".table {\r\n    background-color: aquamarine;\r\n    padding: 5px;\r\n}"]}
